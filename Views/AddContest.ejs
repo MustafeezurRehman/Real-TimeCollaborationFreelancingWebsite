@@ -1,0 +1,160 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+  <link href="/css/editprofile.css" rel="stylesheet">
+  <script type="text/javascript">
+    function checkDate() {
+      var selectedText = document.getElementById('datepicker').value;
+      var selectedDate = new Date(selectedText);
+      var now = new Date();
+      if (selectedDate < now) {
+        alert("Date must be in the future");
+        document.getElementById('datepicker').value = now + 1;
+        return false;
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+  <% include ./Layout/Header.ejs %>
+
+    <div class="container my-4 ">
+      <div class="row align-items-start">
+        <div class="col-lg-11 bg-shadow rounded bg-white ">
+          <div class="row">
+            <div class="col-lg-4  border border-light py-4  mr-2  ">
+              
+                <a href="/addcontest" class="shadow nav-link my-3 font-weight-bold text-center rounded text-white greenbtn px-2">
+                  Add Contest
+                </a>
+              <a href="/addproject" class="nav-link my-3 font-weight-bold text-center rounded text-muted border shadow px-2">
+                Add Bid Project
+              </a>
+             
+
+              <a href="/user/addportfolio" class="nav-link my-3 font-weight-bold text-center rounded text-muted shadow border px-1">
+                Add Portfolio
+              </a>
+              
+
+            </div>
+            <div class="col-lg-7">
+
+              <div class="bg-white mx-auto py-4">
+                <h5 class="card-heading mx-3 mb-4">Post Bid Project</h5>
+                <% if(error.length>0) { %>
+                  <div style="font-size: 13px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= error %>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <%} %>
+                    <% if(success.length>0) { %>
+                      <div style="font-size: 13px;" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= success %>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <%} %>
+
+
+
+                        <form method="post" action="/addcontest">
+
+                          <div class="form-row my-3 mx-2">
+
+                            <div class="my-1 col-12">
+                              <label>Contest Title</label>
+                              <input class="form-control my-2 " minlength="10" required type="text" v name="TITLE" placeholder="Project Title">
+                            </div>
+                            <div class="my-2  col-12">
+                              <label>Contest Type</label>
+                              <br>
+                              <select required name="TYPE" class=" form-control">
+                                <option value="Gold">Gold</option>
+                                <option value="Silver">Silver</option>
+                                <option value="Basic">Basic</option>
+                              </select>
+
+                            </div>
+                            <div  class="my-2  col-12">
+                              <label>Category</label>
+                              <br>
+                              <select required name="CATEGORY" class=" form-control">
+                                <option value="App Design">App Design</option>
+                                <option value="Web Design">Web Design</option>
+                                <option value="Graphic">Graphic</option>
+                              </select>
+
+                            </div>
+
+
+                            <div class="mt-4  mb-1 col-12">
+
+                              <h5 class="text-dark">Background information</h5>
+                              <label>Description of the organization</label>
+                              <textarea class="form-control" name="DESCOFORG" required row="7"></textarea>
+                            </div>
+                            <div class="my-1 col-12">
+                              <label>Industry</label>
+                              <input class="form-control my-2 " maxlength="20" required type="text"  name="INDUSTRY" placeholder="Project Title">
+                            </div>
+                          
+                            <div class="mt-4  mb-1 col-12">
+
+                              <h5 class="text-dark">Visual style</h5>
+                              <label>Style/theme ideas</label>
+                              <textarea class="form-control" name="STYLE" row="2"></textarea>
+                            </div>
+
+                            <div class="my-1 col-12">
+                              <label>Inspirational websites</label>
+                              <input class="form-control my-2 " minlength="10" required type="url"  name="INSPIRATION" placeholder="Project Title">
+                            </div>
+                            <div class="mt-4  mb-1 col-12">
+
+                              <h5 class="text-dark">Content details</h5>
+                              <label>Page descriptions</label>
+                              <textarea class="form-control" name="CONTENTDESC" required row="2"></textarea>
+                            </div>
+                            <div class="mt-4  mb-1 col-12">
+
+                                <h5 class="text-dark">Other</h5>
+                                <label>Other Notes</label>
+                                <textarea class="form-control" name="DESC" row="2"></textarea>
+                              </div>
+
+                           
+
+
+
+                          </div>
+
+                          <input type="submit" value="Post a Project" class="btn border-0 py-2 shadow px-5 my-3 mx-auto btn-primary">
+                        </form>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% include ./Layout/Footer.ejs %> 
+    <% include ./Layout/videocall.ejs %>
+</body>
+
+</html>

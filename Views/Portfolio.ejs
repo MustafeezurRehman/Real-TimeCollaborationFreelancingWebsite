@@ -1,0 +1,234 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+	    crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<link href="/css/portfolio.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="/js/portfolio.js">
+	</script>
+
+
+</head>
+
+<body style="background-color: #e7ecf2;">
+	<% include ./Layout/Header.ejs %>
+
+
+
+
+	<div class="container-fluid pt-4 pb-2 ">
+
+		<div class="row ">
+			<div class="col-12  my-2">
+				<div class="row">
+					<div class="col-lg-6 col-sm-10 col-md-8 col-xs-10 mx-auto">
+						<div class="row">
+							<form action="/portfolio/search" class="input-group px-1  my-lg-0 my-1  ">
+								<div style="font-size: 18px;" class=" blue-shadow input-group-prepend border-left">
+									<button class="btn nav-btn text-center blue-shadow " style="font-size:16px;" type="submit">
+										<i class="fas fa-search text-white"></i>
+									</button>
+								</div>
+
+								<input style="font-size:19px;" type="search" name="search" class="form-control py-4  S text-black-50"
+								    aria-describedby="basic-addon1">
+							</form>
+
+
+						</div>
+						<% if(url==='/portfolio/recent') { %>
+
+						<div class="col-lg-3 col-xs-12 col-sm-8 px-1 mx-auto font-weight-bold mt-2">
+							<a style="color:#42657B; font-size: 15px" href="/portfolio/popular" class="px-2">Popular</a>
+							<a style="color:#00CDAC;font-size: 15px" class="px-2" href="/portfolio/recent">Recent</a>
+						</div>
+						<% } %>
+						<% if(url==='/portfolio/popular') { %>
+						<div class="col-lg-3 col-xs-12 col-sm-8 px-1 mx-auto font-weight-bold mt-2">
+							<a style="color:#00CDAC; font-size: 15px" href="/portfolio/popular" class="px-2">Popular</a>
+							<a style="color:#42657B;font-size: 15px" class="px-2" href="/portfolio/recent">Recent</a>
+						</div>
+						<% } %>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid  mx-auto   ">
+		<div class="row  ml-lg-5 my-3  ">
+			<% for(var i=0 ; i<portlist.length;i++) { %>
+			<div class="col-lg-2 col-md-4 col-sm-5 mx-auto mx-lg-3 my-1 p-0">
+				<div class="p-lg-2 mx-lg-">
+					<div class="card  shadow rounded">
+
+						<div class="card-body p-1">
+							<img src="<%= portlist[i]._Picture._path %><%= portlist[i]._Picture._FileName %>" data-toggle="modal" width="100%"
+							    height="auto" data-target="#Modal<%= portlist[i]._id %>" class="mx-auto  port-pic">
+
+							<!--***** MODEL ***-->
+							<div class="modal fade" id="Modal<%= portlist[i]._id %>" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<img src="/user/profile-pic/<%= portlist[i]._Owner._ProfilePic._FileName %>" width="50" height="50" class="rounded-circle">
+											<h5 class=" py-2 px-3 modal-title">
+												<%= portlist[i]._Title %>
+												<p class="text-muted" style="font-size:14px;font-weight: 400;">By&nbsp;
+													<a href="/userid/<%=portlist[i]._Owner._id %>" class="font-weight-bold green-color">
+														<%= portlist[i]._Owner._FirstName %>&nbsp;
+														<%= portlist[i]._Owner._LastName %></a>&nbsp;on
+													<span>&nbsp;
+														<%= helper(portlist[i]._Date).format('ll'); %></span>
+												</p>
+											</h5>
+
+
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<img src="<%= portlist[i]._Picture._path %><%= portlist[i]._Picture._FileName %>" width="100%" height="auto"
+											    class="img-fluid">
+											<p class="p-2">
+												<%= portlist[i]._Desc %>
+											</p>
+											<% if (currentUser) { %>
+											<hr />
+											<div class="my-1 p-0 mx-auto form-row col-12">
+												<input type="text" id="comment<%= portlist[i]._id %>" class="col-10  mx-1">
+												<input type="button" class="btn col greenback shadow-sm text-white" onclick="comment('comment<%= portlist[i]._id %>','<%= portlist[i]._id %>','commentrow<%= portlist[i]._id %>',
+												'<%= currentUser._FirstName %>&nbsp;<%= currentUser._LastName %>','<%= currentUser._ProfilePic._FileName %>')"
+												    value="Comment">
+											</div>
+											<% } %>
+											<div class="p-0" id="commentrow<%= portlist[i]._id %>">
+												
+												<% for (var j=0 ;j<portlist[i]._Comments.length;j++) { %>
+												<div style="background-color: rgb(235, 235, 235)" class="px-2 py-1 border border-muted  my-2 shadows-sm rounded ">
+													<div class="row">
+														<div class="col-1">
+															<img src="/user/profile-pic/<%= portlist[i]._Comments[j]._Owner._ProfilePic._FileName %>" width="35"
+															    height="35" class="rounded-circle mt-1">
+														</div>
+														<div class="col-9 mt-2">
+															<span>
+																<span class="px-1 font-weight-bold">
+																	<%= portlist[i]._Comments[j]._Owner._FirstName %>&nbsp;
+																	<%= portlist[i]._Comments[j]._Owner._LastName %></span><br>
+																<span style="font-size:12px;" class="px-1">
+																	<%= portlist[i]._Comments[j]._Text %></span>
+															</span>
+														</div>
+													</div>
+
+
+												</div>
+
+												<% } %>
+											</div>
+
+
+											
+
+
+
+
+
+
+
+
+										</div>
+
+
+
+
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+
+
+							<!--***** End of Model ***-->
+
+						</div>
+						<div class="clearfix">
+							<%	if(currentUser) { %>
+
+							<% var check=false %>
+							<%	for(var j=0;j<portlist[i]._Likes.length;j++) { %>
+
+
+							<%	if(portlist[i]._Likes[j].toString() == currentUser._id.toString()) { %>
+							<%	check=true %>
+							<input id="heart<%= portlist[i]._id %>" onclick="update(this,'l<%= portlist[i]._id %>','t<%= portlist[i]._id %>','<%= portlist[i]._id %>')"
+							    class="input-hidden grid-font " checked type="checkbox" />
+							<label id="l<%= portlist[i]._id %>" for="heart<%= portlist[i]._id %>">
+								<i class="fas fa-heart px-2 pt-1"></i>
+							</label>
+
+							<%	 } } %>
+
+							<%	if(check===false) {%>
+							<input id="heart<%= portlist[i]._id %>" onclick="update(this,'l<%= portlist[i]._id %>','t<%= portlist[i]._id %>','<%= portlist[i]._id %>')"
+							    class="input-hidden grid-font " type="checkbox" />
+							<label id="l<%= portlist[i]._id %>" for="heart<%= portlist[i]._id %>">
+								<i class="fas fa-heart px-2 pt-1"></i>
+							</label>
+							<% } } %>
+
+							<span id="t<%= portlist[i]._id %>" style="color:#aaa" class=" mr-3 float-right pt-1">
+								<i class="fas fa-heart ">&nbsp;&nbsp;</i>
+								<%= portlist[i]._LikeCount %></span>
+						</div>
+					</div>
+					<div class="mt-2 px-1">
+						<img src="/user/profile-pic/<%= portlist[i]._Owner._ProfilePic._FileName %>" width="20" height="20">
+						<a href="/userid/<%=portlist[i]._Owner._id %>" style="color:#42657B;">
+							<strong>
+								<%= portlist[i]._Owner._FirstName %>
+							</strong>
+						</a>
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+
+
+			<% } %>
+
+
+
+
+
+
+
+		</div>
+
+
+	</div>
+	</div>
+
+
+	<% include ./Layout/videocall.ejs %>
+
+</body>
+
+</html>

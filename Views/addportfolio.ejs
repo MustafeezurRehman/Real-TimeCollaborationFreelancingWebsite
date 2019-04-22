@@ -1,0 +1,115 @@
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+	    crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<link href="/css/editprofile.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<% include ./Layout/Header.ejs %>
+
+		<div class="container my-4 bg-transparent ">
+			<div class="row align-items-start">
+				<div class="col-lg-11 bg-shadow rounded bg-white ">
+					<div class="row">
+						<div class="col-lg-4  border border-light py-4  mr-2  ">
+							<a href="/user/editprofile" class="nav-link my-3 font-weight-bold text-center rounded text-muted border shadow-sm px-2">
+								Edit Profile
+							</a>
+							<a href="/user/changePassword" class="nav-link my-3 font-weight-bold text-center rounded text-muted shadow-sm border px-1">
+								Change Password
+							</a>
+							<a href="/user/addportfolio" class="shadow nav-link my-3 font-weight-bold text-center rounded text-white greenbtn px-2">
+								Add a Portfolio
+							</a>
+
+
+							<a href="/userid/<%= currentUser._id %>" class="nav-link my-3 font-weight-bold text-center rounded text-muted border shadow-sm px-1">
+								Profile
+							</a>
+
+						</div>
+						<div class="col-lg-7">
+
+							<div class="bg-white mx-auto py-4">
+								<h5 class="card-heading mx-3 mb-4">Add New PortFolio</h5>
+								
+								<% if(error.length>0) { %>
+									<div style="font-size: 13px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+										<%= error %>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+												<span aria-hidden="true">&times;</span>
+											</button>
+									</div>
+									<%} %>
+										<% if(success.length>0) { %>
+											<div style="font-size: 13px;" class="alert alert-success alert-dismissible fade show" role="alert">
+												<%= success %>
+													<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+														<span aria-hidden="true">&times;</span>
+													</button>
+											</div>
+											<%} %>
+											<form method="POST" enctype="multipart/form-data" action="/user/addportfolio">
+												<div class="form-inline">
+													
+													<div class="file-upload mx-2">
+													
+														<input id="upload" class=" border-0 " type="file" name="PORTFOLIO">
+													</div>
+													
+												</div>
+											
+											
+											<div  class=" pb-2">
+												<hr/>
+											</div>
+													
+											
+
+													<div class="form-row my-3 mx-2">
+
+														<div class="my-1 col-12">
+															<label>Title</label>
+															<input class="form-control my-2 " type="text" maxlength="20"  name="TITLE" placeholder="your portfolio title ...">
+														
+														</div>
+														<div class="my-1 col-12">
+																<label>Description</label>
+																<textarea class="form-control my-2 " row="2" type="text"  name="DESC" placeholder="your portfolio title ..."></textarea>
+															
+															</div>
+
+														<input type="submit" value="Add" class="btn border-0 py-2 shadow px-5 my-3 mx-auto btn-primary">
+													</div>
+												</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+		<% include ./Layout/Footer.ejs %> 
+		<% include ./Layout/videocall.ejs %>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+.green-color
+{
+        color: #00CDAC;
+    
+}
+.ftextcolor{
+color:#a4b0be;
+	list-style: none;
+	transition: .8s;
+	
+}
+.ftextcolor:hover{
+color:#00CDAC;
+	list-style: none;
+	
+	
+}
+footer{
+	font-size: 14px;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/css/contest.css" rel="stylesheet">
+   
+</head>
+<body>
+    <% include ./Layout/Header.ejs %>
+<div class="container">
+		
+    <div class="row">
+        
+        
+			<div class="col-lg-8 my-3 mx-auto  col-md-4 col-sm-5 shadowhover rounded ">
+                    <% if(error.length>0) { %>
+                        <div style="font-size: 13px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <%= error %> 
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                      <%} %>
+                      <% if(success.length>0) { %>
+                        <div style="font-size: 13px;" class="alert alert-success alert-dismissible fade show" role="alert">
+                                <%= success %> 
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                      <%} %>
+				<div class="p-lg-2 mx-lg-1">
+				<a href="/project/<%= project._id %>" class="btn-sm px-2 mb-4 text-white greenback">Move to Project</a>
+               <% if(project._Status ==='Assigned')  { %>
+                <form class="my-5" action="/winprojectfinalfiles"  enctype="multipart/form-data" method="POST">
+                    <label>Upload Final File in Rar</label><br>
+                    <input type="file" name="FINALFILE">
+                    <input type="hidden" name="PROJECTID" value="<%= project._id %>">
+                    <input class="btn-block shadow mx-1  my-2 greenback p-1 text-white border-0 rounded" type="submit" value="Upload">
+                </form>
+
+         <%    } %>
+
+
+
+
+					</div>
+				
+
+			
+
+			
+
+            </div>
+            
+                
+            
+    </div>
+</div>
+
+<div class="fixed-bottom">
+
+<% include ./Layout/Footer.ejs %> 
+</div>
+</body>
+</html>

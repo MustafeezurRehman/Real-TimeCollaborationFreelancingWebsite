@@ -1,0 +1,14 @@
+body
+{
+	font-family: 'Roboto',sans-serif;
+	color: #42657B;
+}
+
+.green{
+	 color: #00CDAC;
+}
+.greenback{
+    background-image: linear-gradient(to right top,#00CDAC,#50e5dc );
+    overflow-y: hidden;
+    
+}

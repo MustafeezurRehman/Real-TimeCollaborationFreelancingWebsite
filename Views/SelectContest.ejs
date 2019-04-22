@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/css/contest.css" rel="stylesheet">
+   
+</head>
+<body>
+    <% include ./Layout/Header.ejs %>
+<div class="container">
+		
+    <div class="row">
+        
+			<div class="col-lg-8 my-3 mx-auto  col-md-4 col-sm-5 shadowhover rounded ">
+				<div class="p-lg-2 mx-lg-1">
+				<a href="/contest/<%= Design._ContestId %>" class="btn-sm px-2 mb-4 text-white greenback">Move to Contest</a>
+				<span  class="float-right px-2"><i class="fas text-warning fa-star"></i>&nbsp;<%= Design._Rating %></span>
+					<div class="card  ">
+
+						<div style="overflow: hidden;" class="card-body p-0  ">
+							<img src="<%= Design._Image._Path %><%= Design._Image._FileName %> "  class="img-fluid zoom">
+
+							
+
+						</div>
+						
+					</div>
+				
+
+				</div>
+
+			
+
+			</div>
+    </div>
+</div>
+
+
+
+
+<% include ./Layout/Footer.ejs %> 
+<% include ./Layout/videocall.ejs %>
+</body>
+</html>

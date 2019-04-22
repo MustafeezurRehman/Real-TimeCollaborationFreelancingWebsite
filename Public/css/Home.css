@@ -1,0 +1,33 @@
+.header
+{
+	background-image: url( '/images/HeaderBackground.png');
+	background-position:center;
+	background-size:cover;
+	background-repeat: no-repeat;
+
+}
+body{
+	font-size: 14px;
+}
+.green-color
+{
+        color: #00CDAC;
+    
+}
+
+.greenbtn {
+    background-image: linear-gradient(to right, #00CDAC, #27bfb7);
+}
+a:hover{
+	
+	text-decoration: none;
+}
+.ahover{
+	transition: .5s;
+}
+.ahover:hover
+{
+
+  box-shadow: 0px 17px 27px 0px rgba(69, 49, 97, 0.14);
+
+}

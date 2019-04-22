@@ -1,0 +1,110 @@
+html{
+    font-size: 15px;
+    color: #42657B;
+} 
+body
+{         font-family: 'Roboto', sans-serif;
+         color: #42657B;
+         
+         background-color: #ffffff;
+         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38' viewBox='0 0 100 100'%3E%3Crect x='0' y='0' width='10' height='10' fill-opacity='0.53' fill='%2300cdac'/%3E%3C/svg%3E");
+     }
+.greenback{
+    background-image: linear-gradient(to right top,#00CDAC,#93E9E4 );
+    overflow-y: hidden;
+    
+}
+.box{
+    border-radius:20px;
+    box-shadow: 0px 0px 50px #d3d2d2;
+}
+
+.color-green{
+    color: #00CDAC;
+}
+.color-default{
+    color:#42657B
+}
+.removeAnker-underline:hover{
+    text-decoration: none;
+    color: #42657B;
+}
+
+.bar{
+    width: 40px;
+    height: 7px;
+    background-image: linear-gradient(to right top,#00CDAC,#93E9E4 );
+    
+}
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+input[type=radio]:checked + label>img {
+  border: 2.5px solid #00CDAC;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px -2px rgba(0, 205, 172, 0.91);
+    
+  
+}
+input[type=radio]+label>img {
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    
+    
+    
+    
+}
+input[type=text]:focus,input[type=email]:focus,input[type=password]:focus   {
+background-color: #ffffff;
+border-color: #00cdac;
+box-shadow: 0px 0px 10px -2px rgba(0, 205, 172, 0.91);
+}
+
+input:checked~.custom-control-label::after {
+    color: #fff;
+    background-color: #00cdac;
+
+	border-color: #00cdac;
+	border-radius: 5px;
+	
+}
+  .greenbtn
+{
+    background-image: linear-gradient(to right, #00CDAC,#7ce5df );
+   
+}
+input[type=checkbox]:checked
+{
+	background-color: #ffffff;
+border-color: #00cdac;
+box-shadow: 0px 0px 10px -2px rgba(0, 205, 172, 0.91);
+}
+
+.greenbtn:hover{
+    background-color: #10a38c;
+    
+}
+.p{
+    position:absolute;
+    bottom:0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

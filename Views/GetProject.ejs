@@ -1,0 +1,261 @@
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<link href="/css/addproject.css" rel="stylesheet">
+
+
+	
+
+</head>
+
+<body>
+		<% include ./Layout/Header.ejs %>
+		<% if (currentUser) { %>
+		<% if(error.length>0) { %>
+			<div style="font-size: 13px;" class="alert alert-danger alert-dismissible fade show" role="alert">
+					<%= error %> 
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+		  <%} %>
+		  <% if(success.length>0) { %>
+			<div style="font-size: 13px;" class="alert alert-success alert-dismissible fade show" role="alert">
+					<%= success %> 
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+		  <%} %>
+
+		  <% } %>
+<div class="container-lg-fluid container-md "  style="font-size:14;background-color:#f4f4f4" >
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-10 col-11   mx-auto my-4">
+		<div class="row">
+		<div>
+		<h4 class="font-weight-bold text-dark"><%= project._Title %></h4>
+		</div>
+		<!-- bid roe -->
+		<div class="bg-white col-lg-12   mt-2 rounded shadow-sm">
+		
+		<div class="row justify-content-start">
+		
+		<div class=" text-center border-right my-2 px-3 ">
+			<h6 class="text-secondary">Bids</h6>
+			<h5 class="green"><strong><%= project._Bid.length %></strong></h5>
+			
+			
+		</div>
+		
+		<div class=" text-center border-right my-2  px-3">
+			<h6 class="text-secondary">Project budget</h6>
+			<h5 class="green"><strong><%= project._Price %></strong></h5>
+			
+			
+			
+		</div>
+			<div class=" text-center mx-auto mr-lg-0 ml-lg-auto my-2   px-3">
+			<h6 class="text-secondary"><%= helper(project._ComDate).diff(date,'days') %>&nbsp;Days left</h6>
+			<h5 class="green my-0 font-weight-bold"><%= project._Status %></h5>
+			
+			
+		</div>	
+				
+				
+			</div>
+			
+        </div>
+        <!-- End of bid roe -->
+
+ 		
+               
+		<% if(currentUser) { %>
+                  
+        <% if(currentUser._id.toString()!==project._Owner._id.toString() && project._Status==='Open') { %>
+            <% var check=false %>
+            <% for (var i=0 ;i<project._Bid.length; i++) { %>
+                
+            
+    
+             <%   if(currentUser._id.toString() == project._Bid[i]._Owner._id.toString() ) { %>
+                <% check=true } %>
+                <% } %>
+    
+		<%	if(check===false) { %>
+			<div class=" bg-white rounded col-lg-12  mt-3  shadow-sm">
+					<div class="row p-4 my-auto mx-auto">
+			<form method="POST" action="/project/postbid">
+				<div class="form-row">
+					<div class="col-lg-auto  col-12  mx-auto mx-lg-4 mb-3">
+						<label><strong>Bid</strong></label>
+						<div class="input-group shadow">
+							<div class="input-group-prepend">
+								<span class="input-group-text  rounded-left greenback border-0 text-white">$</span>
+							</div>
+						<input type="number" required class="form-control rounded border-0" name="BIDPRICE" placeholder="Your Bid Price">
+						<div class="input-group-prepend">
+								<span class="input-group-text rounded-right greenback border-0 text-white">.00</span>
+							</div>
+                        </div>
+                        <input type="hidden" value="<%= project._id %>" name="PROJECTID">
+							
+					</div>
+					<div class="col-lg-auto  col-12 mx-auto mx-lg-4 mb-3">
+						<label><strong>Days</strong></label>
+						<div class="input-group shadow">
+							
+						<input type="number" required class="form-control rounded border-0" name="BIDDAYS" placeholder="Days Required">
+						<div class="input-group-prepend ">
+								<span class="input-group-text rounded-right greenback border-0 text-white">Days</span>
+							</div>
+						</div>
+							
+					</div>
+					<div class="col-lg-auto col-12 mx-auto mx-lg-4 mb-3 mt-4  pt-1">
+					
+						<input type="submit" class="form-control px-3 rounded btn-large  greenback shadow text-center text-white" value="Place your Bid">
+						
+					</div>
+					
+				</div>
+				
+            </form>
+       
+		</div>
+		
+		</div> 
+		<% } } } %>
+		
+		
+		<div class="bg-white col-lg-12 mt-4  shadow-sm rounded">
+			<div class="row my-4">
+				<div class="col-lg-8 col-md-10 px-4">
+					<p style="font-size:18px" class="font-weight-bold text-dark">Project Description</p>
+					<p><%= project._Description %></p>
+				</div>
+				<div class="col-lg-8 col-md-10 p-4">
+					<p style="font-size:18px" class="font-weight-bold text-dark">About the Customer</p>
+					<div>
+					 <img class="rounded-circle shadow" src="<%= project._Owner._ProfilePic.path %><%= project._Owner._ProfilePic._FileName %>" width="50" height="50">
+					 <span class="px-2"><a href="/userid/<%= project._Owner._id %>" class="green"><strong><%= project._Owner._FirstName %>&nbsp;<%= project._Owner._LastName %></strong></a></span>
+					 
+					
+					<img class="img-fluid" alt="payment-varified" src="/images/cash.png" width="25" height="auto">
+				<%	if(project._Payment) { %>
+					<span style="font-size: 20px;" class="px-1"><i class="fas fa-check-circle"></i>
+					<%} else {	%>
+						<span style="font-size: 20px;color:#e74c3c;" class="px-1"><i class="fas fa-times-circle"></i>
+						<% } %>
+
+</span>
+					</div>
+					
+				</div>
+					<div class="col-lg-8 col-md-10 px-4 py-0">
+					<p style="font-size:18px" class="font-weight-bold text-dark">Skills Requried</p>
+					<p class="px-2 green font-weight-bold"><span><%= project._Skills %></span></p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="bg-white col-lg-12  mt-4 rounded-bottom shadow-sm">
+		<div class="row ">
+		<div class="col-12">
+		 <div class="row justify-content-between d-none d-lg-flex d-md-flex greenback">
+		 	<div class="px-3 pt-3 mr-auto ">
+		 		<p  style="font-size:14px;" class="text-white  text-uppercase font-weight-bold">Freelancer Bidding (<%= project._Bid.length %>)</p>
+		 	</div>
+		 	<div class=" px-3 mr-auto pt-3">
+		 		<p  style="font-size:14px;" class="text-white text-uppercase font-weight-bold">  &ensp;&ensp;&ensp;&ensp;Ruputation</p>
+		 	</div>
+		 	<div class=" px-5 pt-3">
+		 		<p  style="font-size:14px;" class="text-white text-uppercase font-weight-bold">Bid</p>
+		 	</div>
+		 	
+		 </div>
+		 
+         <!--Start bid Loop -->
+         <% for (var i=0;i<project._Bid.length;i++) { %>
+               
+		 <div class="row jutify-content-end border-bottom border-muted">
+		 	
+		 	<div class="p-3">
+		 		<img src="<%= project._Bid[i]._Owner._ProfilePic.path %><%= project._Bid[i]._Owner._ProfilePic._FileName %>" class="rounded-circle  shadow" width="54" height="54">
+		 		
+		 		
+		 	</div>
+		 	<div class="pt-4">
+		 	<span style="font-size:15px;" class=" font-weight-bold"><a href="#" class="green"><%= project._Bid[i]._Owner._FirstName %>&nbsp;<%= project._Bid[i]._Owner._LastName %></a></span><br>
+             <span style="font-size:12px;color:#aaa;"><%= helper(project._Bid[i]._Date).format('lll') %></span><br>
+			   
+			 <% if(currentUser) { %>
+            
+             <% if(currentUser._id.toString() == project._Bid[i]._Owner._id.toString() ) { %>
+                  
+         
+                <form method="POST" action="/project/deletebid">
+                <input type="hidden" name="PROJECTID" value="<%= project._id %>">
+                <input type="hidden" name="BIDID" value="<%= project._Bid[i]._id %>">
+                <input  style="font-size:12px;" type="submit" class="btn btn-small my-1 shadow p-1 text-white  border-none greenback" value="Delete your Bid"></form>
+           <%  } %>
+           <%   if( currentUser._id.toString()  ===  project._Owner._id.toString() && project._Status==='Open')  { %>
+
+             <form method="POST" action="/project/assigned/user">
+				<input type="text" hidden name="USERID" value="<%= project._Bid[i]._Owner._id %>" >
+				<input type="text" hidden name="PROJECTID" value="<%= project._id %>">
+				<input type="text" hidden name="USERNAME" value="<%= project._Bid[i]._Owner._FirstName %>&nbsp;<%= project._Bid[i]._Owner._LastName %>">
+				<input type="text" hidden name="BIDPRICE" value="<%= project._Bid[i]._BidPrice %>" >
+				<input type="text" hidden name="DAYS" value="<%= project._Bid[i]._Days %>">
+			 <input  style="font-size:12px;" type="submit" class="btn btn-small my-1 shadow border-none p-1 text-white greenback" value="Assign to it">
+			 </form>
+             <% } }%>
+		 	</div>
+		 		<div class="py-3  ml-auto">
+		 		
+		 	<span class="text-dark" style="font-size:18px;letter-spacing: 2px;"><%= project._Bid[i]._Owner._Rating %></span><br>
+		 		<span  style="font-size:13px;" ><i class="fas text-center pl-2 text-warning fa-star">&nbsp;</i></span>
+		 		
+			 </div>
+		 	<div class="p-3 ml-lg-auto  mr-lg-0 mx-auto px-4">
+		 	<div>
+		 		<span class="text-dark" style="font-size:18px;letter-spacing: 1px;"><%= project._Bid[i]._BidPrice %>$</span><br>
+		 		<span  style="font-size:13px;" ><%= project._Bid[i]._Days %>&nbsp;Days</span>
+		 	</div>	
+		 	</div>
+		 
+		 </div>
+		 
+		 
+		 
+		<% } %>
+		 
+		 <!--End bid Loop -->
+		 
+		</div>	
+		</div>
+			
+		</div>
+		
+		</div>
+		</div>
+		
+		
+	</div>
+</div>
+
+<% include ./Layout/videocall.ejs %>
+<% include ./Layout/Footer.ejs %> 
+
+	
+</div>
+
+</body>
+</html>

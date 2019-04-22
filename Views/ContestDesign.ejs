@@ -1,0 +1,222 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+	    crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<link href="/css/contest.css" rel="stylesheet">
+
+	<script src="/js/contest.js"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="15">
+	<% include ./Layout/Header.ejs %>
+	<div style="height:100%">
+		<div class="container-lg-fluid header  py-3 shadow-sm">
+
+			<div class="col-12   p-0  d-flex justify-content-around">
+				<div class="col-md-7 col-8  text-left ">
+					<h4 class="font-weight-bold  m-0 text-dark">
+						<%= contest._Title %>
+					</h4><br>
+					<span class="border   border-dark px-lg-3 px-2 py-1  mr-2 rounded">
+						<%= contest._Status %></span>
+					<span style="font-size: 14px;" class=""><span style="color:#aaa">by&nbsp;&nbsp;</span><a style="font-weight: 500"
+						    class="green" href="/userid/<%= contest._Owner._id %>">
+							<%= contest._Owner._FirstName %></a></span>
+				</div>
+				<div class="col-lg-3 col-md-5  ml-0 pl-0 col-4 text-right">
+					<h4 class="">$
+						<%= contest._Price %>
+					</h4><br>
+					<span style="font-size: 14px"><i class="fas px-1 green fa-check-circle"></i>Guaranteed</span>
+
+				</div>
+
+
+			</div>
+			<div class="mt-5 container-lg-fluid mx-lg-5 px-lg-4 px-3">
+				<div class="row d-flex justify-content-between">
+					<div class="col-6 pr-0">
+						<a href="/contest/<%= contest._id %>" style="font-weight: 400 ;" class=" font-weight-bold mr-lg-4 mr-2 py-1 Lead  ">Brief</a>
+						<a href="" style="font-weight: 400 ;border-bottom: 3px solid #42657B;" class=" mr-lg-4 mr-2 font-weight-bold py-1 Lead  ">Designs
+							<span class="font-weight-light" style="font-size: 13px;color:#aaa;">
+								(
+								<%= contest._Design.length %>)</span></a>
+					</div>
+					<div class="col-6 text-right">
+						<%	if(currentUser) { %>
+						<%	if(currentUser._id.toString()!==contest._Owner._id.toString() && currentUser._Type!=='Customer' && contest._Status==='Open') { %>
+						<button type="button" data-toggle="modal" data-target="#submitModal" class="btn greenback text-white border-0 rounded shadow">
+							<img src="/images/cloud-computing.svg" width="22" height="22">&nbsp; &nbsp;Submit Design</button>
+						<% } %>
+						<% } %>
+						<!--Start of Submit Model -->
+
+
+
+						<div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+						    aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Submit Your Design</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<form action="/design/submit" method="POST" enctype="multipart/form-data">
+										<div class="modal-body text-left">
+
+
+											<input type="file" class="border-0 rounded" name="DESIGN">
+
+
+
+											<div class="form-group">
+												<label for="message-text" class="col-form-label">Desciption:</label>
+												<textarea class="form-control" name="DESC" id="message-text"></textarea>
+											</div>
+											<input type="hidden" name="CONTESTID" value="<%= contest._id %>">
+
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-muted shadow-sm" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn greenback text-white shadow">Submit Design</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<!--End of Submit Model -->
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Start of Lower Section -->
+
+
+		<div class="container-fluid px-5">
+			<div class="row  d-flex justify-content-start mx-lg-auto my-4  ">
+
+
+				<!--Starting of Loop-->
+				<!--*******************-->
+				<% var Design = contest._Design %>
+
+				<% for(var i=0;i<Design.length;i++) { %>
+
+				<div class="col-lg-3  col-md-4 col-sm-5 shadowhover rounded    ">
+					<div class="p-lg-2 mx-lg-1">
+						<span class="px-1"><strong>#
+								<%= i+1 %></strong></span>
+						<span id="upper<%= Design[i]._id %>" class="float-right px-2"><i class="fas text-warning fa-star"></i>&nbsp;
+							<%= Design[i]._Rating %></span>
+						<div class="card  ">
+
+							<div style="overflow: hidden;" class="card-body p-0  ">
+								<img src="<%= Design[i]._Image._Path %><%= Design[i]._Image._FileName %> " data-toggle="modal" data-target="#<%= Design[i]._id %>Modal"
+								    class="img-fluid zoom">
+
+								<!--***** MODEL ***-->
+
+
+								<div class="modal fade" id="<%= Design[i]._id %>Modal" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<img src="<%= Design[i]._Image._Path %><%= Design[i]._Image._FileName %>" width="50" height="50" class="rounded-circle">
+												<h5 class=" py-2 px-3 modal-title">
+													Web Design
+													<p class="text-muted" style="font-size:14px;font-weight: 400;">by&ensp;<a href="/userid/<%= Design[i]._Owner._id %>"
+														    class="font-weight-bold green-color">
+															<%= Design[i]._Owner._FirstName %></a>&ensp;on<span>&ensp;
+															<%= helper(Design[i]._Date).format('ll') %></span></p>
+
+
+
+
+
+
+												</h5>
+
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+
+											<div class="modal-body">
+												<% if(currentUser) { %>
+												<%	if(currentUser._id.toString()===contest._Owner._id.toString() && contest._Status==='Open') { %>
+												<form>
+													<input id='range<%= Design[i]._id %>' type="range" value="<%= Design[i]._Rating %>" min="0" max="5" onchange="rating(this,'attach<%= Design[i]._id %>','upper<%= Design[i]._id %>','<%= Design[i]._id %>','<%= contest._id %>')"
+													    step="0.2" class="custom-range col-7">
+													<span id="attach<%= Design[i]._id %>" class="px-lg-2 px-0 "><i class="fas text-warning fa-star"></i>&nbsp;
+														<%= Design[i]._Rating %></span>
+													<input type="button" onclick="submitrating('range<%= Design[i]._id %>','attach<%= Design[i]._id %>','upper<%= Design[i]._id %>','<%= Design[i]._id %>','<%= contest._id %>')"
+													    value="Submit" data-dismiss="modal" aria-label="Close" class="btn py-2  greenback text-white border-0 rounded shadow-sm">
+
+												</form>
+												<form action="/design/winner" method="POST">
+													<input type="hidden" name="DESIGNID" value="<%= Design[i]._id %>">
+													<input type="hidden" name="CONTESTID" value="<%= contest._id %>">
+													<input type="hidden" name="DESIGNOWNER" value="<%= Design[i]._Owner._id %>">
+													<input type="submit" value="Select Winner" class="btn bg-warning   text-white rounded shadow-sm">
+												</form>
+												<% } %>
+												<% } %>
+												<img src="<%= Design[i]._Image._Path %><%= Design[i]._Image._FileName %>" width="100%" height="auto" class="img-fluid">
+												<p class="py-2">
+
+												</p>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+
+
+
+
+								<!--***** End of Model ***-->
+
+							</div>
+
+						</div>
+						<div class="mt-2 px-1">
+							<img src="<%= Design[i]._Owner._ProfilePic.path %><%=Design[i]._Owner._ProfilePic._FileName %>" width="20"
+							    height="20">
+							<a href="/userid/<%= Design[i]._Owner._id %>" style="color:#42657B;"><strong>
+									<%= Design[i]._Owner._FirstName %></strong></a>
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+				<% } %>
+			</div>
+
+
+		</div>
+		<!-- End Of Lower Section -->
+
+
+	</div>
+	<% include ./Layout/videocall.ejs %>
+	
+</body>
+
+</html>

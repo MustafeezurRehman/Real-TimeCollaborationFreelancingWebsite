@@ -1,0 +1,121 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+    <link href="/css/portfolio.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/js/portfolio.js">
+    </script>
+
+
+</head>
+
+<body style="background-color: #e7ecf2;">
+    <% include ./Layout/Header.ejs %>
+
+
+    <div>
+
+        <div class="container-fluid pt-4 pb-2 ">
+
+            <div class="row ">
+                <div class="col-12  my-2">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-10 col-md-8 col-xs-10 mx-auto">
+                            <div class="row">
+                                <form action="/user" class="input-group px-1  my-lg-0 my-1  ">
+                                    <div style="font-size: 18px;" class=" blue-shadow input-group-prepend border-left">
+                                        <button class="btn nav-btn text-center blue-shadow " style="font-size:16px;"
+                                            type="submit">
+                                            <i class="fas fa-search text-white"></i>
+                                        </button>
+                                    </div>
+
+                                    <input style="font-size:19px;" name="search" type="search" class="form-control py-4  S text-black-50"
+                                        aria-describedby="basic-addon1">
+                                </form>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid  mx-auto   ">
+            <div class="row  ml-lg-5 my-3  ">
+                <% for(var i=0 ; i<Users.length;i++) { %>
+                <div class="col-lg-2  col-md-4 col-sm-5 mx-auto mx-lg-3 my-1 p-0">
+                    <div class="p-lg-2 mx-lg-0">
+                        <div class="card shadowhover border-0  rounded">
+
+                            <div class="card-body text-center m-3 p-1">
+                                <img src="<%= Users[i]._ProfilePic.path %><%= Users[i]._ProfilePic._FileName %>"
+                                    data-toggle="modal" width="100%" height="auto" class="mx-auto rounded-circle port-pic">
+                                <h5 class=" mt-2 font-weight-bold"><span>
+                                        <%= Users[i]._FirstName %></span>&nbsp;<span>
+                                        <%= Users[i]._LastName %></span></h5>
+                                <div class="text-center my-1">
+
+                                    <% if(Users[i]._Type==='Developer') { %>
+
+                                    <span><i class="fas px-1 mt-1 text-warning fa-star"></i><span class="font-weight-bold">
+                                            <%= Users[i]._Rating %></span>&nbsp;(
+                                        <%= Users[i]._ProjectCompleted %>)</span><br>
+
+                                    <% } else{ %>
+                                    <span class="font-weight-bold">Customer</span>
+                                    <% } %>
+                                    <div class="mt-3">
+                                        <% if(currentUser) { %>
+                                        <% if(currentUser._id.toString()!==Users[i]._id.toString()) {  %>
+                                        <a href="/privatechat/<%= Users[i]._id %>" class="btn-sm  shadow text-white greenback">Message</a>
+                                        <% } } %>
+                                        <a href="/userid/<%= Users[i]._id %>" class="btn-sm mx-1 shadow px-3 greenback text-white">Profile</a>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <% } %>
+
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+        <% include ./Layout/videocall.ejs %>
+
+
+
+</body>
+
+</html>

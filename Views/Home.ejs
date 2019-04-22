@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   
+    <link href="/css/Home.css" rel="stylesheet">
+    
+    <link href="/css/Footer.css" rel="stylesheet">
+
+    <title>Homepage</title>
+</head>
+
+<body>
+        <% include ./Layout/Header.ejs %> 
+    <!--Header-->
+    <div class="header">
+            
+        <div class="container">
+               
+            <div class="row align-items-center" style="height:90vh">
+                <div class="col-sm-12">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="text-white ">Hire expert freelancers for any job, online</h1>
+                            <p class="text-white lead">Millions of small businesses use Freelancer to turn their ideas
+                                into reality.</p>
+
+
+
+
+                        </div>
+                        <div class="col-lg-6 d-none d-lg-block mt-5">
+                            <img src="/images/laptop.png" class="img-fluid">
+                        </div>
+
+                        <a class="bg-white  btn mb-5 shadow-lg font-weight-bold text-dark  rounded py-2 px-3 mx-3" href=""><span>Get
+                                Started Today</span></a>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- End Of Header-->
+
+    <section style="background-color: #f8f8f8;" class="mb-3 py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mx-auto col-md-8 text-center">
+                    <h2>Get it to your job</h2>
+                    <p class="text-muted">There are many variations of passages of Lorem Ipsum available, but the
+                        majority have suffered alteration in some form, by injected humour.</p>
+
+                    <div class="my-5 mx-auto ">
+
+
+                        <form action="/projects/page/search" class="input-group px-1  my-lg-0 my-1  ">
+
+
+                            <input style="font-size:15px;" name="search" type="search" class="form-control shadow-sm py-3  S text-black-50"
+                                aria-describedby="basic-addon1">
+                            <div style="font-size: 15px;" class="  input-group-prepend shadow-sm border-right">
+                                <button  class="btn text-white greenbtn  text-center " style="font-size:13px;" type="submit">
+                                    FIND JOBS
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="text-muted pb-5"> Update the latest jobs and annoucements from hire and work<a class="px-2 font-weight-bold green-color"
+                            href="">join us today</a></p>
+                 <%   if( currentUser ) { %>
+                    <% if(currentUser._Type==='Developer') { %>
+                    <a class="py-3  greenbtn shadow text-center rounded text-white font-weight-bold px-5 m-2" href="/user/addportfolio">
+
+                        <span class="">Add Portfolio</span>
+                    </a>
+                <% } %>
+                <% if(currentUser._Type==='Customer') { %>
+                    <a class="py-3  greenbtn shadow text-center rounded text-white font-weight-bold px-5 m-2" href="/addproject">
+
+                        <span class="">Post a job</span>
+                    </a>
+                <% } %>
+                  
+                    <a class="py-3  text-dark font-weight-bold px-5 m-2 bg-white shadow rounded" href="/projects/page">Jobs list</a>
+              <%  } else { %>
+              
+              <a class="py-3  greenbtn shadow text-center rounded text-white font-weight-bold px-5 m-2" href="/login">
+
+                    <span class="">Post a job</span>
+                </a>
+                <a class="py-3  text-dark font-weight-bold px-5 m-2 bg-white shadow rounded" href="/login">Jobs list</a>
+                <% } %>
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+    </section>
+    <!--how find freelace -->
+    <section class="">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 mx-auto my-5 col-md-8 text-center">
+                    <h2>Find Freelance Jobs Online</h2>
+                    <p class="text-muted">There are many variations of passages of Lorem Ipsum available, but the
+                        majority have suffered alteration in some form, by injected humour.</p>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-3  rounded ahover text-center col-md-6 col-sm-10">
+                    <a class="text-dark" href="">
+                        <img src="/images/development.svg" class="m-3" width="50" height="50">
+                        <p class="font-weight-bold">Web Development</p>
+                        <p class="text-muted px-5">There are many variations of passages of Lorem Ipsum available</p>
+                    </a>
+                </div>
+                <div class="col-lg-3 py-3 rounded ahover text-center col-md-6 col-sm-10">
+                    <a class="text-dark" href="">
+                        <img src="/images/graphic.svg" class="m-3" width="50" height="50">
+                        <p class="font-weight-bold">Graphic Design</p>
+                        <p class="text-muted px-5">There are many variations of passages of Lorem Ipsum available</p>
+                    </a>
+                </div>
+                <div class="col-lg-3 py-3 rounded ahover text-center col-md-6 col-sm-10">
+                    <a class="text-dark" href="">
+                        <img src="/images/seo.svg" class="m-3" width="50" height="50">
+                        <p class="font-weight-bold">Search Engine Optimization</p>
+                        <p class="text-muted px-5">There are many variations of passages of Lorem Ipsum available</p>
+                    </a>
+                </div>
+                <div class="col-lg-3 py-3 rounded ahover text-center col-md-6 col-sm-10">
+                    <a class="text-dark" href="">
+                        <img src="/images/app.svg" class="m-3" width="50" height="50">
+                        <p class="font-weight-bold">App Development</p>
+                        <p class="text-muted px-5">There are many variations of passages of Lorem Ipsum available</p>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!--how its freelance -->
+
+
+    <!--how its Work Section -->
+
+    <section>
+        <div class="container-fluid bg-light">
+            <div class="row ">
+                <div class="col-lg-6 my-5  mx-auto col-md-8 text-center">
+                    <h2 class="">How its Work</h2>
+                    <p class="text-muted">There are many variations of passages of Lorem Ipsum available, but the
+                        majority have suffered alteration in some form, by injected humour.</p>
+                </div>
+                <div class="col-lg-7 col-sm-12 mx-auto mb-5">
+                    <img class="img-fluid" src="/images/content.png">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--end how its Work Section -->
+
+
+   
+<% include ./Layout/videocall.ejs %>
+
+ <% include ./Layout/Footer.ejs %> 
+   
+
+   
+   
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+<title>Notification</title>
+    <link href="/css/profile.css" rel="stylesheet" type="text/css">
+    <script src="/js/portfolio.js">
+    </script>
+    <style>
+        .changecolor{
+            transition: .7s;
+        }
+    .changecolor:hover{
+        color: firebrick;
+    }
+    </style>
+</head>
+
+
+<body style="background-color: #e7ecf2;" class="">
+    <% include ./Layout/Header.ejs %>
+    <section class="my-4">
+        <div class="container px-0">
+            <div class="row ">
+                <div class=" col-xl-3  col-lg-4 col-md-5 col-sm-10 col-xs-10">
+                    <div class="card shadow  rounded">
+                        <div class="card-body">
+                            <div class="profile-card text-center">
+                                <div class="thumb0xl member-thumb mb-1 center-block">
+                                    <img src="<%= user._ProfilePic.path %><%= user._ProfilePic._FileName %>" class="profile-pic rounded-circle p-1  border border-muted"
+                                        width="220" height="220">
+                                </div>
+                                <div>
+                                    <h5 class="my-2 font-weight-bold">
+                                        <%= user._FirstName %>&ensp;
+                                        <%= user._LastName %>
+                                    </h5>
+
+                                </div>
+                                <% if(currentUser) { %>
+                                <% if(currentUser._id.toString()!==user._id.toString()) { %>
+                                <a href="/privatechat/<%= user._id %>" class="btn px-4 mx-1 my-2 font-weight-bold shadow  greenbtn text-white">Message</a>
+
+                                <% } %>
+                                <% } %>
+                                <button type="button" class="btn mx-1 px-4 my-2 text-white  font-weight-bold  border greenbtn  shadow">
+                                    <%= user._Type %></button>
+
+
+                                <ul class="list-reset pl-4 pl-lg-0 text-left mt-5">
+                                    <li class="my-1 text-muted">
+                                        <strong>Email:</strong>
+                                        <span class="m-2">
+                                            <%= user._Email %></span>
+                                    </li>
+                                    <li class=" my-2 text-muted">
+                                        <strong>Mobile:</strong>
+                                        <span class="m-1">
+                                            <%= user._Mobile %></span>
+                                    </li>
+
+                                    <li class="my-2 text-muted">
+                                        <strong>Location:</strong>
+                                        <span class="m-1">
+                                            <%= user._Location %></span>
+                                    </li>
+
+                                </ul>
+                                <ul class="social-links list-inline mt-5">
+                                    <li class="list-inline-item px-2">
+                                        <a class="semi-bold-font " href="<%= user._Facebook %>" style="font-size:20px;">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item px-2">
+                                        <a class="semi-bold-font " href="<%= user._Twitter %>" style="font-size:20px; color:#1dcaff;">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item px-2">
+                                        <a class="semi-bold-font " href="<%= user._Google %>" style="font-size:20px; color: #f02e2e">
+                                            <i class="fab fa-google-plus"></i>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-xl-9 col-lg-8 mt-4 mt-lg-0 mt-md-0 col-md-7 col-sm-10 col-xs-11" style="font-size: 14px;">
+                    <div class="card shadow-lg rounded card-tabs ">
+                        <div class="card-header font-weight-bold bg-white p-0 border-0">
+                            <ul class="nav nav-tabs primary-tabs pl-5 m-0" role="tablist">
+                                <li class="nav-item" role="tab">
+                                    <a href="/userid/<%= user._id %>" class="nav-link " >About</a>
+                                </li>
+                                <li class="nav-item" role="tab">
+                                    <a href="/userid/<%= user._id %>" class="nav-link ">Portfolio</a>
+                                </li>
+                                <li class="nav-item" role="tab">
+                                    <a href="/notification" class="nav-link active" data-toggle="tab" aria-expanded="true">Notifications</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane  show active" aria-labelledby="Notificaiton" role="tabpanel" id="notificaiton">
+                                    <div class=" text-center">
+
+
+                                        <div class=" col-12 my-0  px-5 text-left">
+                                            <% for(var i=0;i<notification.length;i++) { %>
+                                            <% if(notification[i]._IsRead===false) { %>
+                                            <form method="POST" action="/notification/true" style="background-color:rgb(243, 243, 243)" class="py-2 changecolor px-1 shadow-sm rounded">
+                                                <button  type="submit" class="border-0 bg-transparent">
+                                                    <img src="<%= notification[i]._LastSender._ProfilePic.path %><%= notification[i]._LastSender._ProfilePic._FileName %>"
+                                                        width="40" height="40" class="  rounded-circle">
+                                                    <span class="pl-1 font-weight-bold green-color">
+                                                        <%= notification[i]._LastSender._FirstName %>&nbsp;
+                                                        <%= notification[i]._LastSender._LastName %></span><span class="px-1 text-muted">
+                                                        <%= notification[i]._Title %></span>
+                                                </button>
+                                                <input type="hidden" name="NOTIID" value="<%= notification[i]._id %>">
+
+                                            </form>
+                                            <hr />
+                                            <% } else { %>
+                                            <a href="<%= notification[i]._Link %>" class="px-1 changecolor rounded">
+                                                <span class="py-0">
+                                                    <img src="<%= notification[i]._LastSender._ProfilePic.path %><%= notification[i]._LastSender._ProfilePic._FileName %>"
+                                                        width="40" height="40" class="  rounded-circle">
+                                                    <span class="pl-1 font-weight-bold green-color">
+                                                        <%= notification[i]._LastSender._FirstName %>&nbsp;
+                                                        <%= notification[i]._LastSender._LastName %></span><span class="px-1 text-muted">
+                                                        <%= notification[i]._Title %></span>
+                                                        </span>
+
+                                            </a>
+                                            <hr />
+                                            <% } %>
+                                            <% } %>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+
+    </section>
+
+    <% include ./Layout/videocall.ejs %>
+    <% include ./Layout/Footer.ejs %>
+
+</body>
+
+</html>

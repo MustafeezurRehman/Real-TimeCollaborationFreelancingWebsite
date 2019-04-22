@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+    <link href="/css/nav_style.css" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+
+    <nav style="font-size: 13px;" class=" sticky-top navbar navbar-expand-md    bg-white shadow-sm px-lg-5 px-2 sidebarNavigation"
+        data-sidebarClass="bg-light">
+
+        <a style="font-size: 18px;" href="/" class="navbar-brand  px-lg-3 pl-1 font-weight-bold logo">Hire&Work</a>
+
+        <button class="navbar-toggler  border-0 px-2 leftNavbarToggler" data-target="#MyNav" style="color: #00cdac; font-size:18px"
+            data-toggle="collapse">
+
+            <span class="fas fa-align-left "></span>
+        </button>
+
+        <div class="collapse justify-content-between  navbar-collapse " id="MyNav">
+            <ul class="navbar-nav ">
+                <div class="dropdown-divider"></div>
+                <li class="nav-item  my-1 my-lg-0 ">
+                    <a class="nav-link font-weight-bold px-3  text-uppercase" href="/projects/page">
+                        <i class="fas fa-paste px-2" style="font-size:16px"></i>browse jobs
+                    </a>
+
+                </li>
+                <div class="dropdown-divider"></div>
+                <li class="nav-item  my-1 my-lg-0 ">
+                    <a class="nav-link font-weight-bold px-3  text-uppercase" href="/portfolio/recent">
+                        <i class="fas fa-camera px-2" style="font-size:16px"></i>
+                        shots
+                    </a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li class="nav-item  my-1 my-lg-0 ">
+                    <a class="nav-link font-weight-bold px-3  text-uppercase" href="#">
+                        <i class="fas fa-ellipsis-h px-2" style="font-size:16px"></i>More
+                    </a>
+
+                </li>
+
+
+
+            </ul>
+
+            <% if(currentUser)  { %>
+            <% if(url!=='/portfolio/recent' &&  url!=='/portfolio/popular') { %>
+            <form action="/user" class="input-group my-lg-0 my-1 mx-lg-2 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group-prepend border-left">
+                    <button class="btn nav-btn text-center blue-shadow" style="font-size:13px;" type="submit">
+                        <i class="fas fa-search text-white"></i>
+                    </button>
+                </div>
+
+                <input style="font-size: 12px" type="search" name="search" placeholder="Search here for User" class="form-control border border-muted input-sm text-black-50"
+                    aria-describedby="basic-addon1">
+            </form>
+            <% } %>
+            <div class="dropdown-divider clearfix"></div>
+            <ul class="navbar-nav mr-1">
+                <li class="nav-item nav-btn shadow-sm rounded px-lg-3 py-lg-0 py-0 my-1 my-lg-0 mx-lg-1 mx-3   ">
+                    <% if(currentUser._Type==="Developer") { %>
+                    <a href="/user/addportfolio" class='nav-link text-white mx-1 semi-bold-font text-center'>Add a
+                        Portfolio</a>
+                    <% } %>
+                    <% if(currentUser._Type==="Customer") { %>
+                    <a href="/addproject" class='nav-link text-white mx-1 semi-bold-font text-center'>Post a job</a>
+                    <% } %>
+
+                </li>
+            </ul>
+            <% } %>
+            <% if(!currentUser) { %>
+            <ul class="navbar-nav  ">
+
+
+
+                <li class="nav-item nav-btn-out shadow-sm rounded px-3 my-2 my-lg-0 mx-2 ">
+                    <a href="/login" class='nav-link nav-btn-text  font-weight-bold text-center'>Log In</a>
+                </li>
+
+                <li class="nav-item nav-btn shadow rounded px-3 my-2 my-lg-0 mx-2   ">
+                    <a href="/signup" class='nav-link text-white font-weight-bold text-center'>Sign Up</a>
+                </li>
+
+
+            </ul>
+            <% } %>
+
+        </div>
+
+
+        </div>
+        <% if(currentUser) { %>
+        <div class="dropdown">
+            <a class="nav-link semi-bold-font mx-lg-3 mx-0 my-auto text-secondary dropdown-toggle  " data-toggle="dropdown"
+                id="messagedropdown" href="#">
+                <i class="far fa-comment-dots" style="font-size:20px"><span class="badge  greenback text-white" style="font-size:10px;position:absolute;">
+                        <%= Msg.length %></span></i>
+            </a>
+            <div class="dropdown-menu  mt-2  py-0 border-0  " aria-labelledby="messagedropdown" aria-expanded="false"
+                style="position: absolute; width: 18rem; height: 22rem;overflow:auto;">
+                <div class="card">
+                    <div class="card-header  bg-white ">
+                        <span class="card-title  bg-white font-weight-bold text-center text-capitalize" style="font-size:14px;">
+                            Messages
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <% var masgcount=0; %>
+                        <% for(var i=0; i<Msg.length;i++) { %>
+
+                        <a href="/privatechat/<%= Msg[i]._Sender._id %>" class="mb-1 font-weight-bold" style="text-decoration: none"><img
+                                src="<%= Msg[i]._SPic %>" height="30" width="30" class="rounded-circle  shadow-sm profile-pic">&nbsp;
+                            &nbsp;
+                            <%= Msg[i]._SName%> message you 😍</a>
+                        <div class="dropdown-divider"></div>
+                        <% } %>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <a class="nav-link semi-bold-font  mr-3 text-secondary  " href="/notification">
+            <i class="far fa-bell" style="font-size:20px"><span class="badge  greenback text-white" style="font-size:10px;position:absolute;">
+                    <%= Notify %></span></i>
+        </a>
+        <div class="dropdown mx-lg-3 mx-3">
+            <img src="/user/profile-pic/<%= currentUser._ProfilePic._FileName %>" class="rounded-circle shadow profile-pic   dropdown-toggle"
+                width="38" height="38" data-toggle="dropdown" id="profiledropdown">
+            <div class="dropdown-menu mt-2 dropdown-menu-right" aria-labelledby="profiledropdown" style="position:absolute">
+                <a class="dropdown-header " href="/userid/<%= currentUser._id %>">
+                    <div class="media mt-2">
+                        <img src="/user/profile-pic/<%= currentUser._ProfilePic._FileName %>" width="45" height="45"
+                            class="rounded-circle mr-2 shadow align-self-start profile-pic ">
+                        <div class="media-body">
+
+                            <span class="font-weight-bold text-capitalize" style="font-size:14px;">
+                                <%= currentUser._FirstName %>
+                                <%= currentUser._LastName %>
+                            </span>
+                            <p>
+                                <%= currentUser._Email %>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item py-3  font-weight-bold  " href="/dashboard">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
+                <a class="dropdown-item  py-3 font-weight-bold " href="/userid/<%= currentUser._id %>">
+                    <i class="fas fa-user mr-2"></i>Profile</a>
+                <% if(currentUser._Type==='Developer') { %>
+                <a class="dropdown-item py-3  font-weight-bold  " href="/balance">
+                    <i class="fas fa-money-check-alt mr-2"></i>Earning</a>
+                <% } %>
+
+                <a class="dropdown-item py-3  font-weight-bold  " href="/user/editprofile">
+                    <i class="fas fa-cog mr-2"></i>Setting</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item py-3  font-weight-bold " href="/logout">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Sign Out</a>
+
+            </div>
+        </div>
+        <% } %>
+
+
+
+
+
+
+
+
+    </nav>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="/js/sidebar.js"></script>
+
+</body>
+
+</html>

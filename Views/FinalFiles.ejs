@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/css/contest.css" rel="stylesheet">
+
+</head>
+<script>
+function rating(element, attachrating) {
+
+
+var attach = document.getElementById(attachrating);
+
+attach.innerHTML = '<i class="fas text-warning fa-star">&nbsp;</i>' + element.value;
+
+
+
+}
+</script>
+<body>
+    <% include ./Layout/Header.ejs %>
+    <div class="container my-5">
+
+        <div class="row">
+
+            <div class="col-4 my-5 mx-auto">
+
+                <a href="<%= contest._FinalFile %>" class="greenback btn text-white">Download Files</a>
+
+                <form class="my-5" action="/submit/design/report"  method="POST">
+                    <input id='range' required type="range" name="RATING" value="0" min="0" max="5" onchange="rating(this,'showrating')"
+                                                        step="0.2" class="custom-range col-7">
+                                                    <label id='showrating'><i class="fas px-2 text-warning fa-star">&nbsp;</i>0</label><br>
+                    <input required type="radio" name="FILE" value="CLEAR">
+                    <label  class="px-1">Right Files</label>
+                    <input required type="radio" name="FILE" value="NOTCLEAR" ><label  class="px-1">Wrong Files</label>
+                    <input type="hidden" name="CONTESTID" value="<%= contest._id %>">
+                    <input type="hidden" name="DESIGNID" value="<%= contest._WinDesign %>">
+                    <input type="hidden" name="WINNER" value="<%= contest._Winner %>">
+                    <input type="submit" value="Submit Report" class="btn-block greenback p-1 rounded my-2 text-white border-0 shadow">
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="fixed-bottom">
+
+        <% include ./Layout/Footer.ejs %>
+    </div>
+</body>
+
+</html>

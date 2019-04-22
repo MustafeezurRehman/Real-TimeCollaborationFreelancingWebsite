@@ -1,0 +1,63 @@
+<div>
+    <% if(currentUser)  { %>
+        <script src="/socket.io/socket.io.js"></script>
+    
+    
+    <audio id="notification" src='/audio/notification.mp3' preload="auto">
+    </audio>
+
+    <input type="hidden" id="userid" value="<%= currentUser._id %>">
+
+
+    <!--Call Model-->
+
+    <div class="modal fade" id="callmodel" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
+                <div class="modal-body mr-0">
+                    <div class="mr-2">
+                        <span class=" mx-auto pt-3 pb-2 px-2 my-3 bg-danger rounded-circle" onclick="endc()"
+                            data-dismiss="modal"><i style="font-size:20px" class="fas  text-white  pb-2 px-1 rounded-circle fa-phone-slash "></i></span>
+                        <span class=" mx-auto px-2 pt-3 pb-2 rounded-circle my-3 bg-success" onclick="Accepted()"
+                            data-dismiss="modal"><i style="font-size:24px" class="fas  my-auto text-white  px-2 py-1 rounded-circle fa-phone-volume"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--End of Call Model-->
+
+
+
+    <!--Video call MOdel-->
+
+    <div class="modal fade in  " id="mymodel" style="background-color: rgba(0, 0, 0, 0.836)"  data-keyboard="false" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-lg">
+              <div class="modal-content border-0" style="background-color: rgba(0, 0, 0, 0.781)">
+                  <div class="model-body bg-transparent">
+                      <div class="col-10 mx-auto bg-transparent">
+                            <video   id="remotevideo" autoplay="true" width="95%" height="auto" ></video>
+                            <video class="rounded " id="video"  muted autoplay="true" style="position:absolute; top:0px;z-index:1000;" width="20%" height="auto" >
+                                 
+                            </video>
+                         
+                            
+                      </div>
+                  </div>
+                
+                
+                    <span  class=" mx-auto my-2 bg-transparent" onclick="endcall()" data-dismiss="modal"><i style="font-size:20px" class="fas border border-danger p-2 text-danger rounded-circle fa-phone"></i></span>
+                
+                  
+              </div>
+             
+            </div>
+          </div>
+
+    <!-- End of Video CallModel-->
+    <script src="/js/videocall.js"></script>
+    <% } %>
+</div>

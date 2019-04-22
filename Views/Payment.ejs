@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script type="text/javascript">
+        function checkDate() {
+            var selectedText = document.getElementById('datepicker').value;
+            var selectedDate = new Date(selectedText);
+            var now = new Date();
+            if (selectedDate < now) {
+                alert("Date must be in the future");
+                document.getElementById('datepicker').value = now + 1;
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <% include ./Layout/Header.ejs %>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-4 p-0 mx-auto border rounded shadow-lg ">
+                
+                    <form class="text-center" action="/payment/1994/12/31" method="POST">
+                            <script
+                              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                              data-key="pk_test_V5L4K5uBV0iFs2LVulg9Jhtp"
+                             
+                              data-name="Payment Details"
+                             
+                              data-amount="<%= Amount %>"
+                              
+                              data-email="example@gmail.com">
+                            </script>
+                            <input type="hidden" value="<%= Project_id %>" name="PROJECTID">
+                            <input type="hidden" value="<%= Type %>" name="TYPE">
+                          </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="fixed-bottom">
+
+        <% include ./Layout/Footer.ejs %>
+    </div>
+
+
+
+</body>
+
+</html>
